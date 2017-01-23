@@ -1,16 +1,19 @@
 //
-//  NWAppDelegate.m
-//  Pusher
+//  NWPushDetail.m
+//  NWPusher
 //
-//  Copyright (c) 2012 noodlewerk. All rights reserved.
+//  Created by IOS on 1/23/17.
+//  Copyright © 2017 noodlewerk. All rights reserved.
 //
 
-#import "NWAppDelegate.h"
+#import "NWPushDetail.h"
 #import <PusherKit/PusherKit.h>
 
-@interface NWAppDelegate () <NWHubDelegate> @end
+@interface NWPushDetail ()
 
-@implementation NWAppDelegate {
+@end
+
+@implementation NWPushDetail {
     IBOutlet NSPopUpButton *_certificatePopup;
     IBOutlet NSComboBox *_tokenCombo;
     IBOutlet NSTextView *_payloadField;
@@ -33,11 +36,9 @@
     dispatch_queue_t _serial;
 }
 
-
-#pragma mark - Application delegate
-
-- (void)applicationDidFinishLaunching:(NSNotification *)notification
-{
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
     NWLogInfo(@"Application did finish launching");
     NWLAddPrinter("NWPusher", NWPusherPrinter, 0);
     NWLPrintInfo();
@@ -58,18 +59,21 @@
     NWLogInfo(@"");
 }
 
-- (void)applicationWillTerminate:(NSNotification *)notification
-{
-    [self saveConfig];
-    NWLRemovePrinter("NWPusher");
-    [_hub disconnect]; _hub.delegate = nil; _hub = nil;
-    NWLogInfo(@"Application will terminate");
-}
+#pragma mark - Application delegate
 
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)application
-{
-    return YES;
-}
+
+//- (void)applicationWillTerminate:(NSNotification *)notification
+//{
+//    [self saveConfig];
+//    NWLRemovePrinter("NWPusher");
+//    [_hub disconnect]; _hub.delegate = nil; _hub = nil;
+//    NWLogInfo(@"Application will terminate");
+//}
+
+//- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)application
+//{
+//    return YES;
+//}
 
 #pragma mark - Events
 
@@ -90,7 +94,7 @@
 
 - (void)controlTextDidChange:(NSNotification *)notification
 {
-    //    if (notification.object == _tokenCombo) [self something];
+//        if (notification.object == _tokenCombo) [self something];
 }
 
 - (IBAction)push:(NSButton *)sender
@@ -133,29 +137,29 @@
 
 - (void)loadCertificatesFromKeychain
 {
-//    NSError *error = nil;
-//    NSArray *certs = [NWSecTools keychainCertificatesWithError:&error];
-//    if (!certs) {
-//        NWLogWarn(@"Unable to access keychain: %@", error.localizedDescription);
-//    }
-//    if (!certs.count) {
-//        NWLogWarn(@"No push certificates in keychain.");
-//    }
-//    certs = [certs sortedArrayUsingComparator:^NSComparisonResult(NWCertificateRef a, NWCertificateRef b) {
-//        NWEnvironmentOptions envOptionsA = [NWSecTools environmentOptionsForCertificate:a];
-//        NWEnvironmentOptions envOptionsB = [NWSecTools environmentOptionsForCertificate:b];
-//        if (envOptionsA != envOptionsB) {
-//            return envOptionsA < envOptionsB;
-//        }
-//        NSString *aname = [NWSecTools summaryWithCertificate:a];
-//        NSString *bname = [NWSecTools summaryWithCertificate:b];
-//        return [aname compare:bname];
-//    }];
-//    NSMutableArray *pairs = @[].mutableCopy;
-//    for (NWCertificateRef c in certs) {
-//        [pairs addObject:@[c, NSNull.null]];
-//    }
-//    _certificateIdentityPairs = [_certificateIdentityPairs arrayByAddingObjectsFromArray:pairs];
+    NSError *error = nil;
+    NSArray *certs = [NWSecTools keychainCertificatesWithError:&error];
+    if (!certs) {
+        NWLogWarn(@"Unable to access keychain: %@", error.localizedDescription);
+    }
+    if (!certs.count) {
+        NWLogWarn(@"No push certificates in keychain.");
+    }
+    certs = [certs sortedArrayUsingComparator:^NSComparisonResult(NWCertificateRef a, NWCertificateRef b) {
+        NWEnvironmentOptions envOptionsA = [NWSecTools environmentOptionsForCertificate:a];
+        NWEnvironmentOptions envOptionsB = [NWSecTools environmentOptionsForCertificate:b];
+        if (envOptionsA != envOptionsB) {
+            return envOptionsA < envOptionsB;
+        }
+        NSString *aname = [NWSecTools summaryWithCertificate:a];
+        NSString *bname = [NWSecTools summaryWithCertificate:b];
+        return [aname compare:bname];
+    }];
+    NSMutableArray *pairs = @[].mutableCopy;
+    for (NWCertificateRef c in certs) {
+        [pairs addObject:@[c, NSNull.null]];
+    }
+    _certificateIdentityPairs = [_certificateIdentityPairs arrayByAddingObjectsFromArray:pairs];
 }
 
 - (void)updateCertificatePopup
@@ -616,5 +620,6 @@ static void NWPusherPrinter(NWLContext context, CFStringRef message, void *info)
     id delegate = NSApplication.sharedApplication.delegate;
     [delegate log:(__bridge NSString *)message warning:warning];
 }
+
 
 @end

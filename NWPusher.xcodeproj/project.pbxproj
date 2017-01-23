@@ -45,6 +45,12 @@
 		5C7803C01D3C488C002107FB /* NWSSLConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = B3F232AA189682D30043DA98 /* NWSSLConnection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5C7803C11D3C488C002107FB /* NWType.h in Headers */ = {isa = PBXBuildFile; fileRef = B34BF1B218DDF401004BA9F7 /* NWType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5C7803C21D3C488C002107FB /* NWLCore.h in Headers */ = {isa = PBXBuildFile; fileRef = B3376A62172BB71200242EBB /* NWLCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		81AFAF8D1E361F8800D2BC04 /* Application.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AFAF8C1E361F8800D2BC04 /* Application.storyboard */; };
+		81AFAF961E36267300D2BC04 /* NWPushListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AFAF951E36267300D2BC04 /* NWPushListVC.m */; };
+		81AFAF9A1E3649B800D2BC04 /* NWPushItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AFAF991E3649B800D2BC04 /* NWPushItem.m */; };
+		81AFAF9D1E364D0D00D2BC04 /* NWDataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AFAF9C1E364D0D00D2BC04 /* NWDataProvider.m */; };
+		81AFAFA01E3661EE00D2BC04 /* NWPushDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AFAF9F1E3661EE00D2BC04 /* NWPushDetail.m */; };
+		81FD35D91E360954000585A1 /* NWStatusCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FD35D81E360954000585A1 /* NWStatusCellView.m */; };
 		B3005FC318F43659009BB7C3 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3005FC218F43659009BB7C3 /* Application.xib */; };
 		B33FB1C8172B185C006529CE /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = B33FB1BB172B185C006529CE /* icon.icns */; };
 		B33FB1C9172B185C006529CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B33FB1BC172B185C006529CE /* main.m */; };
@@ -121,6 +127,17 @@
 		5C7803A61D3C4826002107FB /* PusherKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PusherKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7803A81D3C4826002107FB /* PusherKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PusherKit.h; sourceTree = "<group>"; };
 		5C7803A91D3C4826002107FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81AFAF8C1E361F8800D2BC04 /* Application.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Application.storyboard; sourceTree = "<group>"; };
+		81AFAF941E36267300D2BC04 /* NWPushListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPushListVC.h; sourceTree = "<group>"; };
+		81AFAF951E36267300D2BC04 /* NWPushListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPushListVC.m; sourceTree = "<group>"; };
+		81AFAF981E3649B800D2BC04 /* NWPushItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPushItem.h; sourceTree = "<group>"; };
+		81AFAF991E3649B800D2BC04 /* NWPushItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPushItem.m; sourceTree = "<group>"; };
+		81AFAF9B1E364D0D00D2BC04 /* NWDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWDataProvider.h; sourceTree = "<group>"; };
+		81AFAF9C1E364D0D00D2BC04 /* NWDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWDataProvider.m; sourceTree = "<group>"; };
+		81AFAF9E1E3661EE00D2BC04 /* NWPushDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPushDetail.h; sourceTree = "<group>"; };
+		81AFAF9F1E3661EE00D2BC04 /* NWPushDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPushDetail.m; sourceTree = "<group>"; };
+		81FD35D71E360954000585A1 /* NWStatusCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWStatusCellView.h; sourceTree = "<group>"; };
+		81FD35D81E360954000585A1 /* NWStatusCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWStatusCellView.m; sourceTree = "<group>"; };
 		B3005FC218F43659009BB7C3 /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
 		B3376A61172BB71200242EBB /* NWLCore.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = NWLCore.c; path = Mac/NWLCore.c; sourceTree = SOURCE_ROOT; };
 		B3376A62172BB71200242EBB /* NWLCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NWLCore.h; path = Mac/NWLCore.h; sourceTree = SOURCE_ROOT; };
@@ -233,6 +250,30 @@
 			path = "PusherKit-OSX";
 			sourceTree = "<group>";
 		};
+		81AFAF971E36267A00D2BC04 /* PushList */ = {
+			isa = PBXGroup;
+			children = (
+				81AFAF9B1E364D0D00D2BC04 /* NWDataProvider.h */,
+				81AFAF9C1E364D0D00D2BC04 /* NWDataProvider.m */,
+				81FD35D71E360954000585A1 /* NWStatusCellView.h */,
+				81FD35D81E360954000585A1 /* NWStatusCellView.m */,
+				81AFAF941E36267300D2BC04 /* NWPushListVC.h */,
+				81AFAF951E36267300D2BC04 /* NWPushListVC.m */,
+				81AFAF981E3649B800D2BC04 /* NWPushItem.h */,
+				81AFAF991E3649B800D2BC04 /* NWPushItem.m */,
+			);
+			name = PushList;
+			sourceTree = "<group>";
+		};
+		81AFAFA11E36639200D2BC04 /* PushDetails */ = {
+			isa = PBXGroup;
+			children = (
+				81AFAF9E1E3661EE00D2BC04 /* NWPushDetail.h */,
+				81AFAF9F1E3661EE00D2BC04 /* NWPushDetail.m */,
+			);
+			name = PushDetails;
+			sourceTree = "<group>";
+		};
 		B3376A5F172B9EFD00242EBB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,8 +307,11 @@
 			children = (
 				B3AFABEE172C81910027346A /* config.plist */,
 				B3005FC218F43659009BB7C3 /* Application.xib */,
+				81AFAF8C1E361F8800D2BC04 /* Application.storyboard */,
 				B33FB1BE172B185C006529CE /* NWAppDelegate.h */,
 				B33FB1BF172B185C006529CE /* NWAppDelegate.m */,
+				81AFAFA11E36639200D2BC04 /* PushDetails */,
+				81AFAF971E36267A00D2BC04 /* PushList */,
 				B3376A60172B9F1F00242EBB /* Supporting Files */,
 			);
 			path = Mac;
@@ -544,6 +588,7 @@
 				B3005FC318F43659009BB7C3 /* Application.xib in Resources */,
 				B3B4DCD318A7998300F9F258 /* LICENSE.txt in Resources */,
 				B3AFABEF172C81910027346A /* config.plist in Resources */,
+				81AFAF8D1E361F8800D2BC04 /* Application.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,8 +638,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81AFAF9A1E3649B800D2BC04 /* NWPushItem.m in Sources */,
+				81FD35D91E360954000585A1 /* NWStatusCellView.m in Sources */,
 				B33FB1C9172B185C006529CE /* main.m in Sources */,
+				81AFAF9D1E364D0D00D2BC04 /* NWDataProvider.m in Sources */,
 				B33FB1CB172B185C006529CE /* NWAppDelegate.m in Sources */,
+				81AFAF961E36267300D2BC04 /* NWPushListVC.m in Sources */,
+				81AFAFA01E3661EE00D2BC04 /* NWPushDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -887,7 +937,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -920,7 +970,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -938,7 +988,7 @@
 				);
 				INFOPLIST_FILE = "Mac/PusherMac-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noodlewerk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pusher;
 				WRAPPER_EXTENSION = app;
@@ -958,7 +1008,7 @@
 				);
 				INFOPLIST_FILE = "Mac/PusherMac-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.noodlewerk.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pusher;
 				WRAPPER_EXTENSION = app;
