@@ -28,7 +28,6 @@
         self.title = [aDecoder decodeObjectForKey:@"title"];
         self.body = [aDecoder decodeObjectForKey:@"body"];
         self.iid = [aDecoder decodeObjectForKey:@"iid"];
-        
     }
     
     return self;
@@ -38,7 +37,6 @@
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeObject:self.body forKey:@"body"];
     [coder encodeObject:self.iid forKey:@"iid"];
-    
 }
 
 @end

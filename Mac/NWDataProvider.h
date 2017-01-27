@@ -11,10 +11,14 @@
 
 @interface NWDataProvider : NSObject
 
+@property NSUInteger selectedPushID;
+
 + (NWDataProvider *)sharedInstance;
-//- (NSArray<NWPushItem *> *)loadPushItems;
 - (NSArray<NWPushItem *> *)pushItems;
 - (void)storePushItems: (NSArray<NWPushItem *> *)items;
-- (void)changeTitle:(NSString *) title forItemID: (NSNumber *)itemID;
+- (void)changeTitle:(NSString *)title forItemID:(NSNumber *)itemID;
+- (void)changeBody:(NSString *)body forItemID:(NSNumber *)itemID;
 - (void)addPushItem:(NWPushItem *)item;
+- (NWPushItem *)pushItemByID:(NSUInteger)itemID;
+
 @end

@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NWPushDetail : NSViewController
+@interface NWPushDetail : NSViewController <NSTextFieldDelegate> 
 
 @end

@@ -8,8 +8,9 @@
 
 #import "NWPushDetail.h"
 #import <PusherKit/PusherKit.h>
+#import "NWDataProvider.h"
 
-@interface NWPushDetail ()
+@interface NWPushDetail () 
 
 @end
 
@@ -32,12 +33,14 @@
     NSArray *_certificateIdentityPairs;
     NSUInteger _lastSelectedIndex;
     NWCertificateRef _selectedCertificate;
+    NWPushItem *_pushItem;
     
     dispatch_queue_t _serial;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
     NWLogInfo(@"Application did finish launching");
     NWLAddPrinter("NWPusher", NWPusherPrinter, 0);
@@ -51,11 +54,13 @@
     [self updateCertificatePopup];
     
     NSString *payload = [_config valueForKey:@"payload"];
+    _payloadField.delegate = self;
     _payloadField.string = payload.length ? payload : @"";
     _payloadField.font = [NSFont fontWithName:@"Monaco" size:10];
     _payloadField.enabledTextCheckingTypes = 0;
     _logField.enabledTextCheckingTypes = 0;
     [self updatePayloadCounter];
+    [self addObservers];
     NWLogInfo(@"");
 }
 
@@ -77,6 +82,13 @@
 
 #pragma mark - Events
 
+- (void)showItemHandler:(NSNotification *)notification {
+    NSDictionary *dict = notification.userInfo;
+    NSUInteger itemID = [dict[@"itemID"] unsignedIntegerValue];
+    _pushItem = [[NWDataProvider sharedInstance] pushItemByID:itemID];
+    _payloadField.string = _pushItem.body;
+}
+
 - (IBAction)certificateSelected:(NSPopUpButton *)sender
 {
     [self connectWithCertificateAtIndex:_certificatePopup.indexOfSelectedItem];
@@ -89,12 +101,18 @@
 
 - (void)textDidChange:(NSNotification *)notification
 {
-    if (notification.object == _payloadField) [self updatePayloadCounter];
+    if (notification.object == _payloadField) {
+        [self savePayload];
+        [self updatePayloadCounter];
+    }
 }
 
 - (void)controlTextDidChange:(NSNotification *)notification
 {
 //        if (notification.object == _tokenCombo) [self something];
+    if (notification.object == _payloadField) {
+        NSLog(@"_payloadField.string: %@", _payloadField.string);
+    }
 }
 
 - (IBAction)push:(NSButton *)sender
@@ -272,6 +290,11 @@
     BOOL isJSON = !![NSJSONSerialization JSONObjectWithData:[payload dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     _countField.stringValue = [NSString stringWithFormat:@"%@  %lu", isJSON ? @"" : @"malformed", payload.length];
     _countField.textColor = payload.length > 256 || !isJSON ? NSColor.redColor : NSColor.darkGrayColor;
+}
+
+- (void)savePayload
+{
+    [[NWDataProvider sharedInstance] changeBody:_payloadField.string forItemID:_pushItem.iid];
 }
 
 - (void)upPayloadTextIndex
@@ -459,6 +482,10 @@
 
 #pragma mark - Config
 
+- (void)addObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showItemHandler:) name:@"showItem" object:nil];
+}
+
 - (NSString *)identifierWithCertificate:(NWCertificateRef)certificate
 {
     NWEnvironmentOptions environmentOptions = [NWSecTools environmentOptionsForCertificate:certificate];
@@ -620,6 +647,7 @@ static void NWPusherPrinter(NWLContext context, CFStringRef message, void *info)
     id delegate = NSApplication.sharedApplication.delegate;
     [delegate log:(__bridge NSString *)message warning:warning];
 }
+
 
 
 @end

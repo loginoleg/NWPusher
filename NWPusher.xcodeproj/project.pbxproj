@@ -253,14 +253,10 @@
 		81AFAF971E36267A00D2BC04 /* PushList */ = {
 			isa = PBXGroup;
 			children = (
-				81AFAF9B1E364D0D00D2BC04 /* NWDataProvider.h */,
-				81AFAF9C1E364D0D00D2BC04 /* NWDataProvider.m */,
 				81FD35D71E360954000585A1 /* NWStatusCellView.h */,
 				81FD35D81E360954000585A1 /* NWStatusCellView.m */,
 				81AFAF941E36267300D2BC04 /* NWPushListVC.h */,
 				81AFAF951E36267300D2BC04 /* NWPushListVC.m */,
-				81AFAF981E3649B800D2BC04 /* NWPushItem.h */,
-				81AFAF991E3649B800D2BC04 /* NWPushItem.m */,
 			);
 			name = PushList;
 			sourceTree = "<group>";
@@ -308,6 +304,10 @@
 				B3AFABEE172C81910027346A /* config.plist */,
 				B3005FC218F43659009BB7C3 /* Application.xib */,
 				81AFAF8C1E361F8800D2BC04 /* Application.storyboard */,
+				81AFAF9B1E364D0D00D2BC04 /* NWDataProvider.h */,
+				81AFAF9C1E364D0D00D2BC04 /* NWDataProvider.m */,
+				81AFAF981E3649B800D2BC04 /* NWPushItem.h */,
+				81AFAF991E3649B800D2BC04 /* NWPushItem.m */,
 				B33FB1BE172B185C006529CE /* NWAppDelegate.h */,
 				B33FB1BF172B185C006529CE /* NWAppDelegate.m */,
 				81AFAFA11E36639200D2BC04 /* PushDetails */,

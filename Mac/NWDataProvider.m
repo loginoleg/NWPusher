@@ -43,13 +43,16 @@ static NSString *kPushItemsKey = @"kPushItemsKey";
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:items];
     [currentDefaults setObject:data forKey:kPushItemsKey];
     
+    for (NWPushItem *item in items) {
+        NSLog(@"store item body: %@", item.body);
+    }
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)changeTitle:(NSString *) title forItemID: (NSNumber *)itemID {
     NSArray<NWPushItem *> *items = [self loadPushItems];
     NSMutableArray *newArray = [[NSMutableArray alloc] init];
-    
     
     for (NWPushItem *item in items) {
         if ([item.iid integerValue] == [itemID integerValue]) {
@@ -63,10 +66,44 @@ static NSString *kPushItemsKey = @"kPushItemsKey";
     [self storePushItems:newArray];
 }
 
+- (void)changeBody:(NSString *)body forItemID:(NSNumber *)itemID {
+    NSLog(@"body to save: %@", body);
+    NSArray<NWPushItem *> *items = [self loadPushItems];
+    NSMutableArray *newArray = [[NSMutableArray alloc] init];
+    
+    for (NWPushItem *item in items) {
+        if ([item.iid integerValue] == [itemID integerValue]) {
+            NWPushItem *changedItem = [[NWPushItem alloc] initWithTitle:item.title andBody:body];
+            [newArray addObject:changedItem];
+        } else {
+            [newArray addObject:item];
+        }
+    }
+    
+    [self storePushItems:newArray];
+}
+
+
 - (void)addPushItem:(NWPushItem *)item {
     NSMutableArray *newArray = [[NSMutableArray alloc] initWithArray:[self pushItems]];
     [newArray addObject:item];
     [[NWDataProvider sharedInstance] storePushItems:newArray];
 }
+
+- (NWPushItem *)pushItemByID:(NSUInteger)itemID {
+    NSArray *items = [self loadPushItems];
+    NWPushItem *returnItem;
+    for (NWPushItem *item in items) {
+        if ([item.iid integerValue] == itemID) {
+            returnItem = item;
+        }
+    }
+    
+    return returnItem;
+}
+
+
+
+
 
 @end

@@ -42,9 +42,9 @@
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
+    NWPushItem *pushItem = (NWPushItem *)[[NWDataProvider sharedInstance] pushItems][row];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showItem" object:nil
-                                                      userInfo:@{@"itemID" : @(row)}];
-    NSLog(@"row: %ld", (long)row);
+                                                      userInfo:@{@"itemID" : pushItem.iid}];
     return YES;
 }
 
