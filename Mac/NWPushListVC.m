@@ -13,8 +13,6 @@
 
 @interface NWPushListVC ()
 
-//@property NSMutableArray<NWPushItem *> *pushItems;
-
 @end
 
 @implementation NWPushListVC
@@ -23,7 +21,6 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-//    _pushItems = [[NSMutableArray alloc] initWithArray:[[NWDataProvider sharedInstance] loadPushItems]];
     [self.tableView reloadData];
     [self.tableView setDoubleAction:@selector(tableViewDoubleAction)];
 }
@@ -42,9 +39,12 @@
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
-    NWPushItem *pushItem = (NWPushItem *)[[NWDataProvider sharedInstance] pushItems][row];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"showItem" object:nil
-                                                      userInfo:@{@"itemID" : pushItem.iid}];
+//    NWPushItem *pushItem = (NWPushItem *)[[NWDataProvider sharedInstance] pushItems][row];
+    [[NWDataProvider sharedInstance] selectItemAtRow:row];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"showItem" object:nil
+//                                                      userInfo:@{@"itemID" : pushItem.iid}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showItemAtRow" object:nil userInfo:nil];
+    
     return YES;
 }
 

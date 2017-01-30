@@ -33,7 +33,6 @@
     NSArray *_certificateIdentityPairs;
     NSUInteger _lastSelectedIndex;
     NWCertificateRef _selectedCertificate;
-    NWPushItem *_pushItem;
     
     dispatch_queue_t _serial;
 }
@@ -82,12 +81,20 @@
 
 #pragma mark - Events
 
-- (void)showItemHandler:(NSNotification *)notification {
-    NSDictionary *dict = notification.userInfo;
-    NSUInteger itemID = [dict[@"itemID"] unsignedIntegerValue];
-    _pushItem = [[NWDataProvider sharedInstance] pushItemByID:itemID];
-    _payloadField.string = _pushItem.body;
+- (void)showItemAtRowHandler {
+    NWPushItem *item = [[NWDataProvider sharedInstance] selectedPushItem];
+    _payloadField.string = item.body;
 }
+
+//- (void)showItemHandler:(NSNotification *)notification {
+//    NSDictionary *dict = notification.userInfo;
+//    NSUInteger itemID = [dict[@"itemID"] unsignedIntegerValue];
+//    _pushItem = [[NWDataProvider sharedInstance] pushItemByID:itemID];
+//    _payloadField.string = _pushItem.body;
+//    NSLog(@"PushDetails");
+//    NSLog(@"itemID: %lu", (unsigned long)itemID);
+//    NSLog(@"_pushItem ID: %@, body: %@", _pushItem.iid, _pushItem.body);
+//}
 
 - (IBAction)certificateSelected:(NSPopUpButton *)sender
 {
@@ -294,7 +301,7 @@
 
 - (void)savePayload
 {
-    [[NWDataProvider sharedInstance] changeBody:_payloadField.string forItemID:_pushItem.iid];
+    [[NWDataProvider sharedInstance] changeBodyForSelectedItem:_payloadField.string];
 }
 
 - (void)upPayloadTextIndex
@@ -483,7 +490,8 @@
 #pragma mark - Config
 
 - (void)addObservers {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showItemHandler:) name:@"showItem" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showItemHandler:) name:@"showItem" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showItemAtRowHandler) name:@"showItemAtRow" object:nil];
 }
 
 - (NSString *)identifierWithCertificate:(NWCertificateRef)certificate

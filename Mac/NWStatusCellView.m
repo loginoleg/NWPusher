@@ -20,7 +20,7 @@
 @implementation NWStatusCellView
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj {
-    [[NWDataProvider sharedInstance] changeTitle:self.titleTF.stringValue forItemID:_pushItem.iid];
+//    [[NWDataProvider sharedInstance] changeTitle:self.titleTF.stringValue forItemID:_pushItem.iid];
     NSLog(@"controlTextDidEndEditing: %@:%@", self.titleTF.stringValue, _pushItem.iid);
     
 }

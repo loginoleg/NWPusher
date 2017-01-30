@@ -10,7 +10,9 @@
 
 static NSString *kPushItemsKey = @"kPushItemsKey";
 
-@implementation NWDataProvider
+@implementation NWDataProvider {
+    NSInteger _selectedRow;
+}
 
 + (NWDataProvider *)sharedInstance {
     //  Static local predicate must be initialized to 0
@@ -25,7 +27,6 @@ static NSString *kPushItemsKey = @"kPushItemsKey";
 
 
 - (NSArray<NWPushItem *> *)pushItems {
-
     return [self loadPushItems];
 }
 
@@ -33,7 +34,9 @@ static NSString *kPushItemsKey = @"kPushItemsKey";
 
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kPushItemsKey];
     NSArray *pushItems = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
+    for (NWPushItem *item in pushItems) {
+        NSLog(@"load item body: %@", item.body);
+    }
     return pushItems;
 }
 
@@ -67,11 +70,12 @@ static NSString *kPushItemsKey = @"kPushItemsKey";
 }
 
 - (void)changeBody:(NSString *)body forItemID:(NSNumber *)itemID {
-    NSLog(@"body to save: %@", body);
+    NSLog(@"[%@]body to save: %@", itemID, body);
     NSArray<NWPushItem *> *items = [self loadPushItems];
     NSMutableArray *newArray = [[NSMutableArray alloc] init];
     
     for (NWPushItem *item in items) {
+        NSLog(@"%ld == %ld", [item.iid integerValue], [itemID integerValue]);
         if ([item.iid integerValue] == [itemID integerValue]) {
             NWPushItem *changedItem = [[NWPushItem alloc] initWithTitle:item.title andBody:body];
             [newArray addObject:changedItem];
@@ -100,6 +104,18 @@ static NSString *kPushItemsKey = @"kPushItemsKey";
     }
     
     return returnItem;
+}
+
+- (NWPushItem *)selectedPushItem {
+    return self.pushItems[_selectedRow];
+}
+- (void)selectItemAtRow:(NSInteger)row {
+    _selectedRow = row;
+}
+
+- (void)changeBodyForSelectedItem:(NSString *)newBody {
+    self.pushItems[_selectedRow].body = newBody;
+    [self storePushItems:self.pushItems];
 }
 
 
