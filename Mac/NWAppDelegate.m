@@ -7,6 +7,7 @@
 
 #import "NWAppDelegate.h"
 #import <PusherKit/PusherKit.h>
+#import "NWDataProvider.h"
 
 @interface NWAppDelegate () <NWHubDelegate> @end
 
@@ -60,6 +61,7 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
+    [[NWDataProvider sharedInstance] save];
     [self saveConfig];
     NWLRemovePrinter("NWPusher");
     [_hub disconnect]; _hub.delegate = nil; _hub = nil;

@@ -82,19 +82,12 @@
 #pragma mark - Events
 
 - (void)showItemAtRowHandler {
+    NSLog(@"showItemAtRowHandler");
     NWPushItem *item = [[NWDataProvider sharedInstance] selectedPushItem];
+    NSLog(@"lpi[%@] title: %@ body: %@", [[NWDataProvider sharedInstance] selectedPushItem], [[[NWDataProvider sharedInstance] selectedPushItem] title], [[[NWDataProvider sharedInstance] selectedPushItem] body]);
     _payloadField.string = item.body;
 }
 
-//- (void)showItemHandler:(NSNotification *)notification {
-//    NSDictionary *dict = notification.userInfo;
-//    NSUInteger itemID = [dict[@"itemID"] unsignedIntegerValue];
-//    _pushItem = [[NWDataProvider sharedInstance] pushItemByID:itemID];
-//    _payloadField.string = _pushItem.body;
-//    NSLog(@"PushDetails");
-//    NSLog(@"itemID: %lu", (unsigned long)itemID);
-//    NSLog(@"_pushItem ID: %@, body: %@", _pushItem.iid, _pushItem.body);
-//}
 
 - (IBAction)certificateSelected:(NSPopUpButton *)sender
 {
@@ -301,7 +294,8 @@
 
 - (void)savePayload
 {
-    [[NWDataProvider sharedInstance] changeBodyForSelectedItem:_payloadField.string];
+    [[[NWDataProvider sharedInstance] selectedPushItem] setBody:_payloadField.string];
+    NSLog(@"spi[%@] title: %@ body: %@", [[NWDataProvider sharedInstance] selectedPushItem], [[[NWDataProvider sharedInstance] selectedPushItem] title], [[[NWDataProvider sharedInstance] selectedPushItem] body]);
 }
 
 - (void)upPayloadTextIndex

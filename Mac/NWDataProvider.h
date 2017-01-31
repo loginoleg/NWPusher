@@ -11,18 +11,22 @@
 
 @interface NWDataProvider : NSObject
 
-//@property NSUInteger selectedPushID;
+@property NSUInteger selectedPushID;
 
 + (NWDataProvider *)sharedInstance;
-//- (NSArray<NWPushItem *> *)pushItems;
+
+- (void)save;
+- (NSArray<NWPushItem *> *)pushItems;
+
 //- (void)storePushItems: (NSArray<NWPushItem *> *)items;
 //- (void)changeTitle:(NSString *)title forItemID:(NSNumber *)itemID;
 //- (void)changeBody:(NSString *)body forItemID:(NSNumber *)itemID;
-//- (void)addPushItem:(NWPushItem *)item;
+- (void)addPushItem:(NWPushItem *)item;
 //- (NWPushItem *)pushItemByID:(NSUInteger)itemID;
+
 
 - (NWPushItem *)selectedPushItem;
 - (void)selectItemAtRow:(NSInteger)row;
-- (void)changeBodyForSelectedItem:(NSString *)newBody;
+//- (void)changeBodyForSelectedItem:(NSString *)newBody;
 
 @end

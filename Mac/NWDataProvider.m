@@ -12,26 +12,31 @@ static NSString *kPushItemsKey = @"kPushItemsKey";
 
 @implementation NWDataProvider {
     NSInteger _selectedRow;
+    NSMutableArray *_pushItems;
 }
 
 + (NWDataProvider *)sharedInstance {
-    //  Static local predicate must be initialized to 0
     static NWDataProvider *sharedInstance = nil;
     static dispatch_once_t onceToken = 0;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[NWDataProvider alloc] init];
-        // Do any other initialisation stuff here
     });
     return sharedInstance;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _pushItems = [[NSMutableArray alloc] initWithArray:[self loadPushItems]];
+    }
+    return self;
+}
 
 - (NSArray<NWPushItem *> *)pushItems {
-    return [self loadPushItems];
+    return _pushItems;
 }
 
 - (NSArray<NWPushItem *> *)loadPushItems {
-
     NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kPushItemsKey];
     NSArray *pushItems = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     for (NWPushItem *item in pushItems) {
@@ -41,7 +46,6 @@ static NSString *kPushItemsKey = @"kPushItemsKey";
 }
 
 - (void)storePushItems:(NSArray<NWPushItem *> *)items {
-    
     NSUserDefaults *currentDefaults = [NSUserDefaults standardUserDefaults];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:items];
     [currentDefaults setObject:data forKey:kPushItemsKey];
@@ -53,69 +57,25 @@ static NSString *kPushItemsKey = @"kPushItemsKey";
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)changeTitle:(NSString *) title forItemID: (NSNumber *)itemID {
-    NSArray<NWPushItem *> *items = [self loadPushItems];
-    NSMutableArray *newArray = [[NSMutableArray alloc] init];
-    
-    for (NWPushItem *item in items) {
-        if ([item.iid integerValue] == [itemID integerValue]) {
-            NWPushItem *changedItem = [[NWPushItem alloc] initWithTitle:title andBody:item.body];
-            [newArray addObject:changedItem];
-        } else {
-            [newArray addObject:item];
-        }
-    }
-    
-    [self storePushItems:newArray];
-}
-
-- (void)changeBody:(NSString *)body forItemID:(NSNumber *)itemID {
-    NSLog(@"[%@]body to save: %@", itemID, body);
-    NSArray<NWPushItem *> *items = [self loadPushItems];
-    NSMutableArray *newArray = [[NSMutableArray alloc] init];
-    
-    for (NWPushItem *item in items) {
-        NSLog(@"%ld == %ld", [item.iid integerValue], [itemID integerValue]);
-        if ([item.iid integerValue] == [itemID integerValue]) {
-            NWPushItem *changedItem = [[NWPushItem alloc] initWithTitle:item.title andBody:body];
-            [newArray addObject:changedItem];
-        } else {
-            [newArray addObject:item];
-        }
-    }
-    
-    [self storePushItems:newArray];
-}
-
-
 - (void)addPushItem:(NWPushItem *)item {
     NSMutableArray *newArray = [[NSMutableArray alloc] initWithArray:[self pushItems]];
     [newArray addObject:item];
     [[NWDataProvider sharedInstance] storePushItems:newArray];
 }
 
-- (NWPushItem *)pushItemByID:(NSUInteger)itemID {
-    NSArray *items = [self loadPushItems];
-    NWPushItem *returnItem;
-    for (NWPushItem *item in items) {
-        if ([item.iid integerValue] == itemID) {
-            returnItem = item;
-        }
-    }
-    
-    return returnItem;
+- (NWPushItem *)selectedPushItem {
+//    NSLog(@"get push item at row: %d", _selectedRow);
+//    NSLog(@"push item:%@", _pushItems[_selectedRow]);
+    return _pushItems[_selectedRow];
 }
 
-- (NWPushItem *)selectedPushItem {
-    return self.pushItems[_selectedRow];
-}
 - (void)selectItemAtRow:(NSInteger)row {
     _selectedRow = row;
+    NSLog(@"new selected row: %d", _selectedRow);
 }
 
-- (void)changeBodyForSelectedItem:(NSString *)newBody {
-    self.pushItems[_selectedRow].body = newBody;
-    [self storePushItems:self.pushItems];
+- (void)save {
+    [self storePushItems:_pushItems];
 }
 
 
